@@ -21,4 +21,21 @@ const loginUser = async (userData) => {
   }
 };
 
-export { registerUser, loginUser };
+// Function to validate a user's token by making a GET request to the server
+const validateUser = async (userToken) => {
+  try {
+    const response = await axios.get(`${baseUrl}/users/validate`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    const data = response.data;
+    return data;
+    // return response.data;
+  } catch (error) {
+    console.log(error);
+    return error.response.data;
+  }
+};
+
+export { registerUser, loginUser, validateUser };

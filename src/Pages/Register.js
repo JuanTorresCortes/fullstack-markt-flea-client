@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";=>don't forget nav to login
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../Api/api";
 
 const Register = () => {
@@ -11,7 +11,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState({}); // State variable to store any validation errors
 
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ const Register = () => {
       setBillingAddress("");
       setBirthday("");
       setPassword("");
-      // navigate("/login"); =>don't forget nav to login
+      navigate("/login");
     } else {
       // If there are errors in the registration response, set the error state to display the error messages
       setError(registerResult.error);
