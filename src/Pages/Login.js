@@ -41,10 +41,10 @@ const Login = () => {
   };
 
   return (
-    <div className="login-form-container">
+    <div className="form-container">
       <h1>Login</h1>
       {/* Login form */}
-      <Form onSubmit={handleOnSubmit} className="login-form">
+      <Form onSubmit={handleOnSubmit} className="form">
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control

@@ -1,13 +1,15 @@
 .App {
   text-align: center;
+  background-color: rgb(23, 23, 158);
+  height: 100vh;
 }
 
-.login-form-container {
+.form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.login-form {
+.form {
   width: 35%;
   margin-top: 2em;
   border: 3px solid black;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../Api/api";
+import { Button, Form } from "react-bootstrap";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -43,53 +44,69 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="form-container">
       <h1>Register</h1>
-      <form onSubmit={handleOnSubmit}>
-        <label htmlFor="firstName">First Name: </label>
-        <input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <br />
-        <label htmlFor="lastName">Last Name: </label>
-        <input
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <br />
-        <label htmlFor="email">Email: </label>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <label htmlFor="billingAddress">Billing Address: </label>
-        <input
-          type="text"
-          value={billingAddress}
-          onChange={(e) => setBillingAddress(e.target.value)}
-        />
-        <br />
-        <label htmlFor="birthday">Birthday: </label>
-        <input
-          type="date"
-          value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
-        />
-        <br />
-        <label htmlFor="password">Password: </label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <button style={{ backgroundColor: "green" }}>Submit</button>
-      </form>
+      <Form onSubmit={handleOnSubmit} className="form">
+        <Form.Group className="mb-3" controlId="firstName">
+          <Form.Label>First Name:</Form.Label>
+          <Form.Control
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="lastName">
+          <Form.Label>Last Name:</Form.Label>
+          <Form.Control
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="email">
+          <Form.Label>Email:</Form.Label>
+          <Form.Control
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="billingAddress">
+          <Form.Label>Billing Address:</Form.Label>
+          <Form.Control
+            type="text"
+            value={billingAddress}
+            onChange={(e) => setBillingAddress(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="birthday">
+          <Form.Label>Birthday:</Form.Label>
+          <Form.Control
+            type="date"
+            value={birthday}
+            onChange={(e) => setBirthday(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Password:</Form.Label>
+          <Form.Control
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+
+        <Button variant="success" type="submit">
+          Submit
+        </Button>
+      </Form>
+
+      {/* Display error messages if any */}
       {error.firstName && <p>{error.firstName}</p>}
       {error.lastName && <p>{error.lastName}</p>}
       {error.email && <p>{error.email}</p>}
@@ -101,22 +118,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// const userSchema = new mongoose.Schema({
-//   _id: { type: String, default: uuid },
-//   firstName: { type: String, required: true },
-//   lastName: { type: String, required: true },
-//   email: {
-//     type: String,
-//     required: true,
-//     lowercase: true,
-//     trim: true,
-//     unique: true,
-//   },
-//   billingAddress: { type: String, required: true },
-//   birthday: { type: Date, required: true },
-//   myItems: [{ type: String, ref: "items" }],
-//   passwordHash: { type: String, required: true },
-//   createdAt: { type: Date, default: Date.now },
-//   messages: [messageSchema], // Using the imported messageSchema
-// });
