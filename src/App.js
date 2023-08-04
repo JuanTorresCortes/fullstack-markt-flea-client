@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { getUserToken, removeUserToken } from "./Auth/authLocalStorage";

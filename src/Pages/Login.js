@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { loginUser } from "../Api/api";
 import { setUserToken } from "../Auth/authLocalStorage";
 import { useNavigate, useOutletContext } from "react-router-dom";
-
+import { Button, Form } from "react-bootstrap";
 const Login = () => {
   const [email, setEmail] = useState(""); // State variable to store the email input value
   const [password, setPassword] = useState(""); // State variable to store the password input value
@@ -41,33 +41,37 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login-form-container">
       <h1>Login</h1>
       {/* Login form */}
-      <form onSubmit={handleOnSubmit}>
-        <label>Email:</label>
-        {/* Input field for email */}
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+      <Form onSubmit={handleOnSubmit} className="login-form">
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
 
-        <br />
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
 
-        <label>Password:</label>
-        {/* Input field for password */}
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <br />
-
-        {/* Submit button */}
-        <button style={{ backgroundColor: "green" }}>Submit</button>
-      </form>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
 
       {/* Display error messages if any */}
       {error.email && <p>{error.email}</p>}
