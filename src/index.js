@@ -7,15 +7,22 @@ import Login from "./Pages/Login";
 import PrivateRoute from "./Layouts/PrivateRoute";
 import Products from "./Pages/Products";
 import ProductForm from "./Components/ProductForm";
+import Home from "./Pages/Home";
 import reportWebVitals from "./reportWebVitals";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        index: true,
+        element: <Home />,
+      },
       {
         path: "register",
         element: <Register />,
@@ -39,6 +46,11 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+
+  {
+    path: "home",
+    element: <Home />,
   },
 ]);
 

@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import { getUserToken, removeUserToken } from "./Auth/authLocalStorage";
 import { validateUser } from "./Api/api";
 import "./App.css";
-import NavBar from "./Components/NavBar";
+import NavBarMain from "./Components/NavBarMain";
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -40,8 +40,8 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar />
-      <h1>Market-flea</h1>
+      <NavBarMain />
+
       <Outlet context={{ setShouldRefresh, user, isVerified, userToken }} />
     </div>
   );
