@@ -21,6 +21,7 @@ const PrivateRoute = () => {
 
   const createProduct = async (data) => {
     setShouldRefresh(true);
+    console.log(data);
     const createResults = await addProduct(userToken, data);
     setShouldRefresh(false);
     return createResults.success;

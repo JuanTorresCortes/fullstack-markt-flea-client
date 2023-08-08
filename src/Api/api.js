@@ -30,7 +30,7 @@ const validateUser = async (userToken) => {
       },
     });
     const data = response.data;
-    console.log("from validateUser", data);
+    // console.log("from validateUser", data);
     return data;
     // return response.data;
   } catch (error) {
@@ -41,12 +41,18 @@ const validateUser = async (userToken) => {
 
 const addProduct = async (token, productData) => {
   try {
+    const formData = new FormData();
+    for (const key in productData) {
+      formData.append(key, productData[key]);
+    }
+
     const response = await axios.post(
       `${baseUrl}/products/create-product`,
-      productData,
+      formData,
       {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data", // This content type is necessary for sending files
         },
       }
     );
