@@ -40,7 +40,13 @@ function App() {
 
   return (
     <div className="App">
-      <NavBarMain />
+      <NavBarMain
+        isVerified={isVerified}
+        setIsVerified={setIsVerified}
+        user={user}
+        setUser={setUser}
+        setShouldRefresh={setShouldRefresh}
+      />
 
       <Outlet context={{ setShouldRefresh, user, isVerified, userToken }} />
     </div>

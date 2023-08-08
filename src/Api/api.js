@@ -30,6 +30,7 @@ const validateUser = async (userToken) => {
       },
     });
     const data = response.data;
+    console.log("from validateUser", data);
     return data;
     // return response.data;
   } catch (error) {
@@ -38,4 +39,35 @@ const validateUser = async (userToken) => {
   }
 };
 
-export { registerUser, loginUser, validateUser };
+const addProduct = async (token, productData) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/products/create-product`,
+      productData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const getAllProducts = async (token) => {
+  try {
+    const response = await axios.get(`${baseUrl}/products/all-products`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+export { registerUser, loginUser, validateUser, addProduct, getAllProducts };

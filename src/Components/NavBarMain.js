@@ -1,14 +1,28 @@
 import React from "react";
-import {
-  Button,
-  Container,
-  Form,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from "react-bootstrap";
+import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
+import { removeUserToken } from "../Auth/authLocalStorage";
 
-const NavBarMain = () => {
+const NavBarMain = ({
+  isVerified,
+  user,
+  setShouldRefresh,
+  setUser,
+  setIsVerified,
+}) => {
+  const handleLogout = async () => {
+    setShouldRefresh(true);
+
+    // Remove the user token from the local storage
+    const resultLogout = await removeUserToken();
+    if (resultLogout) {
+      // Set the user authentication status to false and reset user details
+      setShouldRefresh(false);
+      setUser(null);
+      setIsVerified(false);
+      console.log("Logged out");
+    }
+  };
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
@@ -22,27 +36,17 @@ const NavBarMain = () => {
           >
             {/* this is a nav link AO */}
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/login">login</Nav.Link>
-            <Nav.Link href="register">Register</Nav.Link>
-
-            {/* this is a drop down  */}
-            <NavDropdown title="my profile" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">my wish list</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                my transactions
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action3">my post</NavDropdown.Item>
-              <NavDropdown.Item href="#action3">my messages</NavDropdown.Item>
-
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">my profile</NavDropdown.Item>
-            </NavDropdown>
-
-            <Navbar.Collapse className="justify-content-end">
-              <Navbar.Text>
-                Signed in as: <a href="/">Juan Torres</a>
-              </Navbar.Text>
-            </Navbar.Collapse>
+            {!isVerified ? (
+              <React.Fragment>
+                <Nav.Link href="/login">Login</Nav.Link>
+                <Nav.Link href="/register">Register</Nav.Link>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <span>{user}</span>
+                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+              </React.Fragment>
+            )}
           </Nav>
 
           <Form className="d-flex">
