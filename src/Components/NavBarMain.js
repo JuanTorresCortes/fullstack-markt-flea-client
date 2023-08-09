@@ -26,7 +26,7 @@ const NavBarMain = ({
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand href="#">Market Flea</Navbar.Brand>
+        <Navbar.Brand href="/">Market Flea</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -35,7 +35,7 @@ const NavBarMain = ({
             navbarScroll
           >
             {/* this is a nav link AO */}
-            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/products">Home</Nav.Link>
             {!isVerified ? (
               <React.Fragment>
                 <Nav.Link href="/login">Login</Nav.Link>
@@ -43,7 +43,12 @@ const NavBarMain = ({
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <span>{user}</span>
+                <Nav.Link href="/products/add-product">Add Product</Nav.Link>
+                <Navbar.Collapse className="justify-content-end">
+                  <Navbar.Text>
+                    Signed in as: <a href="/">{user}</a>
+                  </Navbar.Text>
+                </Navbar.Collapse>
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               </React.Fragment>
             )}

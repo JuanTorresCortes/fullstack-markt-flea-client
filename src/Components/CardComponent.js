@@ -1,12 +1,21 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-const CardComponent = ({ product }) => {
-  console.log(product.image.data);
-  const imageBase64 = product.image
-    ? `data:image/jpeg;base64,${toBase64(product.image.data)}`
-    : "";
-  console.log(imageBase64);
+const CardComponent = ({ product, handlePost }) => {
+  const navigate = useNavigate();
+
+  const imageBase64 =
+    product.image && product.image.data
+      ? `data:image/jpeg;base64,${btoa(
+          String.fromCharCode(...new Uint8Array(product.image.data))
+        )}`
+      : "";
+
+  const post = () => {
+    handlePost(product._id);
+    navigate("/");
+  };
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Img variant="top" src={imageBase64} alt={product.productName} />
@@ -17,12 +26,10 @@ const CardComponent = ({ product }) => {
         <Card.Text>Quantity: {product.quantity}</Card.Text>
         <Card.Text>Category: {product.categories}</Card.Text>
       </Card.Body>
+      <Button variant="success" onClick={post}>
+        Post
+      </Button>
     </Card>
   );
 };
-
-function toBase64(arr) {
-  return btoa(arr.reduce((data, byte) => data + String.fromCharCode(byte), ""));
-}
-
 export default CardComponent;

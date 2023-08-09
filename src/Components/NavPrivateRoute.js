@@ -8,11 +8,11 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 
-const NavPrivateRoute = () => {
+const NavPrivateRoute = ({ user }) => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand href="#">Market Flea</Navbar.Brand>
+        <Navbar.Brand href="/">Market Flea</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -21,7 +21,7 @@ const NavPrivateRoute = () => {
             navbarScroll
           >
             {/* this is a nav link AO */}
-            <Nav.Link href="/products">Home</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/products/add-product">Add Product</Nav.Link>
 
             {/* this is a drop down  */}
@@ -39,7 +39,7 @@ const NavPrivateRoute = () => {
 
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
-                Signed in as: <a href="/">Juan Torres</a>
+                Signed in as: <a href="/">{user}</a>
               </Navbar.Text>
             </Navbar.Collapse>
           </Nav>

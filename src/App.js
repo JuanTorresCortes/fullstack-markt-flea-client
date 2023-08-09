@@ -22,7 +22,8 @@ function App() {
       if (userToken) {
         const verifyResult = await validateUser(userToken);
         if (verifyResult.success) {
-          setUser(verifyResult.email);
+          const userFullName = `${verifyResult.firstName} ${verifyResult.lastName}`;
+          setUser(userFullName);
           setIsVerified(true);
         } else {
           setShouldRefresh(false);

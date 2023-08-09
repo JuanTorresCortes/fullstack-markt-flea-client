@@ -7,7 +7,7 @@ const PrivateRoute = () => {
   const [product, setProduct] = useState([]);
   const [shouldRefresh, setShouldRefresh] = useState(false);
 
-  const { isVerified, userToken } = useOutletContext();
+  const { isVerified, userToken, user } = useOutletContext();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -27,15 +27,17 @@ const PrivateRoute = () => {
     return createResults.success;
   };
 
+  const handlePost = (id) => {};
+
   return (
     <div>
       PrivateRoute
       {isVerified && (
         <>
-          <NavPrivateRoute />
+          <NavPrivateRoute user={user} />
           <Outlet
             // don't forget handleDelete, handelEdit
-            context={{ createProduct, product, setProduct }}
+            context={{ createProduct, product, setProduct, handlePost }}
           />
         </>
       )}
