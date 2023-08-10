@@ -49,7 +49,14 @@ function App() {
         setShouldRefresh={setShouldRefresh}
       />
 
-      <Outlet context={{ setShouldRefresh, user, isVerified, userToken }} />
+      <Outlet
+        context={{
+          setShouldRefresh,
+          user,
+          isVerified,
+          userToken,
+        }}
+      />
     </div>
   );
 }

@@ -11,11 +11,18 @@ const Register = () => {
   const [birthday, setBirthday] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({}); // State variable to store any validation errors
+  const [confirmPassword, setConfirmPassword] = useState(""); // state variable for confirmation password
 
   const navigate = useNavigate();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if password and confirmation password match
+    if (password !== confirmPassword) {
+      setError({ ...error, confirmPassword: "Passwords do not match" }); // error if passwords don't match
+      return; // Exit the function if passwords don't match
+    }
 
     const data = {
       firstName,
@@ -94,10 +101,22 @@ const Register = () => {
 
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password:</Form.Label>
+          <Form.Label>: Battaglia8!</Form.Label>
           <Form.Control
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="confirmPassword">
+          {" "}
+          {/*confirmation password */}
+          <Form.Label>Confirm Password:</Form.Label>
+          <Form.Control
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
 
@@ -113,6 +132,7 @@ const Register = () => {
       {error.billingAddress && <p>{error.billingAddress}</p>}
       {error.birthday && <p>{error.birthday}</p>}
       {error.password && <p>{error.password}</p>}
+      {error.confirmPassword && <p>{error.confirmPassword}</p>}
     </div>
   );
 };

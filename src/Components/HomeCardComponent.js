@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { deleteProduct } from "../Api/api";
 
-const CardComponent = ({ product, handlePost, userToken }) => {
-  // Initialize the state as false
-  const [isPosted, setIsPosted] = useState(product.isPosted);
-
+const HomeCardComponent = ({ product, isVerified }) => {
   const navigate = useNavigate();
 
   const imageBase64 =
@@ -15,23 +11,11 @@ const CardComponent = ({ product, handlePost, userToken }) => {
           String.fromCharCode(...new Uint8Array(product.image.data))
         )}`
       : "";
-
-  const post = () => {
-    // Toggle the local isPosted state
-    setIsPosted(!isPosted);
-    const data = {
-      isPosted: !isPosted,
-    };
-    // Call the handlePost function with the new value
-    handlePost(product._id, data);
-    navigate("/");
+  const handleBuyButton = () => {
+    if (!isVerified) {
+      navigate("/login");
+    }
   };
-
-  const handleDelete = async () => {
-    deleteProduct(userToken, product._id);
-    navigate("/");
-  };
-
   return (
     <Card style={{ width: "18rem", height: "100%" }}>
       <Card.Img
@@ -47,13 +31,12 @@ const CardComponent = ({ product, handlePost, userToken }) => {
         <Card.Text>Quantity: {product.quantity}</Card.Text>
         <Card.Text>Category: {product.categories}</Card.Text>
       </Card.Body>
-      <Button variant={isPosted ? "warning" : "success"} onClick={post}>
-        {product.isPosted ? "Un-post" : "Post"}
+      <Button variant={"success"} onClick={handleBuyButton}>
+        buy
       </Button>
-      <Button variant={"danger"} onClick={handleDelete}>
-        delete
-      </Button>
+      <Button variant={"success"}>add to wishlist</Button>
     </Card>
   );
 };
-export default CardComponent;
+
+export default HomeCardComponent;

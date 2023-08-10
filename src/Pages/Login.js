@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../Api/api";
 import { setUserToken } from "../Auth/authLocalStorage";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext, Link } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 const Login = () => {
   const [email, setEmail] = useState(""); // State variable to store the email input value
@@ -31,7 +31,7 @@ const Login = () => {
       setEmail("");
       setPassword("");
       setError({});
-      navigate("/products");
+      navigate("/");
     } else {
       // If there are errors in the login response, set the error state to display the error messages
       setError(loginResult.error);
@@ -60,6 +60,8 @@ const Login = () => {
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
+          <Form.Label>: Battaglia8!</Form.Label>
+
           <Form.Control
             type="password"
             placeholder="Password"
@@ -74,8 +76,18 @@ const Login = () => {
       </Form>
 
       {/* Display error messages if any */}
-      {error.email && <p>{error.email}</p>}
-      {error.password && <p>{error.password}</p>}
+      {error.email && (
+        <p>
+          {error.email}
+          <Link to="/register"> Register</Link>
+        </p>
+      )}
+      {error.password && (
+        <p>
+          {error.password}
+          <Link to="/register"> Register</Link>
+        </p>
+      )}
     </div>
   );
 };

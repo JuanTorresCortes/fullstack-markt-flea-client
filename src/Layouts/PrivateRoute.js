@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
-import { addProduct, getAllProducts } from "../Api/api";
-import NavPrivateRoute from "../Components/NavPrivateRoute";
+import { addProduct, getAllProducts, editProduct } from "../Api/api";
 
 const PrivateRoute = () => {
   const [product, setProduct] = useState([]);
   const [shouldRefresh, setShouldRefresh] = useState(false);
 
-  const { isVerified, userToken, user } = useOutletContext();
+  const { isVerified, userToken } = useOutletContext();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -27,20 +26,29 @@ const PrivateRoute = () => {
     return createResults.success;
   };
 
-  const handlePost = (id) => {};
+  const handlePost = async (id, data) => {
+    setShouldRefresh(true);
+    const editResponse = await editProduct(userToken, id, data);
+    if (editResponse.success) {
+      setShouldRefresh(false);
+    }
+  };
 
   return (
     <div>
-      PrivateRoute
-      {isVerified && (
-        <>
-          <NavPrivateRoute user={user} />
-          <Outlet
-            // don't forget handleDelete, handelEdit
-            context={{ createProduct, product, setProduct, handlePost }}
-          />
-        </>
-      )}
+      <>
+        <h3>myPage</h3>
+        <Outlet
+          // don't forget handleDelete, handelEdit
+          context={{
+            createProduct,
+            product,
+            setProduct,
+            handlePost,
+            userToken,
+          }}
+        />
+      </>
     </div>
   );
 };

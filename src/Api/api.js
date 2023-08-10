@@ -17,6 +17,7 @@ const loginUser = async (userData) => {
     const response = await axios.post(`${baseUrl}/users/login`, userData);
     return response.data;
   } catch (error) {
+    //return { success: false, error: error.response.data }; // Return an object with a success field set to false and the error data
     return error.response.data;
   }
 };
@@ -76,4 +77,60 @@ const getAllProducts = async (token) => {
     return error.response.data;
   }
 };
-export { registerUser, loginUser, validateUser, addProduct, getAllProducts };
+
+const editProduct = async (token, id, editInfo) => {
+  try {
+    const response = await axios.put(
+      `${baseUrl}/products/edit-product/${id}`,
+      editInfo,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const getPostedProducts = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/products/get-posted-products`);
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const deleteProduct = async (userToken, id) => {
+  try {
+    const response = await axios.delete(
+      `${baseUrl}/products/delete-product/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }
+    );
+
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export {
+  registerUser,
+  loginUser,
+  validateUser,
+  addProduct,
+  getAllProducts,
+  editProduct,
+  getPostedProducts,
+  deleteProduct,
+};

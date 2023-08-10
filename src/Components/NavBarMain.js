@@ -1,6 +1,14 @@
 import React from "react";
-import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Form,
+  Nav,
+  Navbar,
+  NavDropdown,
+} from "react-bootstrap";
 import { removeUserToken } from "../Auth/authLocalStorage";
+import { useNavigate } from "react-router-dom";
 
 const NavBarMain = ({
   isVerified,
@@ -9,6 +17,7 @@ const NavBarMain = ({
   setUser,
   setIsVerified,
 }) => {
+  const navigate = useNavigate();
   const handleLogout = async () => {
     setShouldRefresh(true);
 
@@ -19,7 +28,7 @@ const NavBarMain = ({
       setShouldRefresh(false);
       setUser(null);
       setIsVerified(false);
-      console.log("Logged out");
+      navigate("/");
     }
   };
 
@@ -35,7 +44,7 @@ const NavBarMain = ({
             navbarScroll
           >
             {/* this is a nav link AO */}
-            <Nav.Link href="/products">Home</Nav.Link>
+
             {!isVerified ? (
               <React.Fragment>
                 <Nav.Link href="/login">Login</Nav.Link>
@@ -43,10 +52,31 @@ const NavBarMain = ({
               </React.Fragment>
             ) : (
               <React.Fragment>
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/products">myPage</Nav.Link>
                 <Nav.Link href="/products/add-product">Add Product</Nav.Link>
+
+                <NavDropdown title="my profile" id="navbarScrollingDropdown">
+                  <NavDropdown.Item href="#action3">
+                    my wish list
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#action4">
+                    my transactions
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#action3">my post</NavDropdown.Item>
+                  <NavDropdown.Item href="#action3">
+                    my messages
+                  </NavDropdown.Item>
+
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action5">
+                    my profile
+                  </NavDropdown.Item>
+                </NavDropdown>
+
                 <Navbar.Collapse className="justify-content-end">
                   <Navbar.Text>
-                    Signed in as: <a href="/">{user}</a>
+                    Signed in as: <a href="/products">{user}</a>
                   </Navbar.Text>
                 </Navbar.Collapse>
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
