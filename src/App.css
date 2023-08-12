@@ -1,7 +1,8 @@
 .App {
   text-align: center;
-  background-color: rgb(23, 23, 158);
+  background-color: #0f1111;
   height: 100vh;
+  overflow: scroll;
 }
 
 .form-container {

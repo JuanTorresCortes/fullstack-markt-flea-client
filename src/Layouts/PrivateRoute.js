@@ -6,7 +6,8 @@ const PrivateRoute = () => {
   const [product, setProduct] = useState([]);
   const [shouldRefresh, setShouldRefresh] = useState(false);
 
-  const { isVerified, userToken } = useOutletContext();
+  const { isVerified, userToken, userInfo, currentItem, setCurrentItem } =
+    useOutletContext();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -46,6 +47,8 @@ const PrivateRoute = () => {
             setProduct,
             handlePost,
             userToken,
+            userInfo,
+            currentItem,
           }}
         />
       </>

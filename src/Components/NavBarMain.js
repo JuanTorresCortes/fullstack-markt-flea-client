@@ -33,7 +33,7 @@ const NavBarMain = ({
   };
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
       <Container fluid>
         <Navbar.Brand href="/">Market Flea</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />

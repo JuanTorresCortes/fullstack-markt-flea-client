@@ -8,6 +8,7 @@ import PrivateRoute from "./Layouts/PrivateRoute";
 import Products from "./Pages/Products";
 import ProductForm from "./Components/ProductForm";
 import Home from "./Pages/Home";
+import ItemPage from "./Pages/ItemPage";
 import reportWebVitals from "./reportWebVitals";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "itemPage",
+        element: <ItemPage />,
+      },
+      {
         path: "register",
         element: <Register />,
       },
@@ -31,6 +36,7 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
+
       {
         path: "products",
         element: <PrivateRoute />,

@@ -11,6 +11,8 @@ function App() {
   const [user, setUser] = useState(null);
   const [isVerified, setIsVerified] = useState(false);
   const [shouldRefresh, setShouldRefresh] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
+  const [currentItem, setCurrentItem] = useState({});
 
   useEffect(() => {
     const token = getUserToken();
@@ -21,9 +23,13 @@ function App() {
     const verifyUser = async () => {
       if (userToken) {
         const verifyResult = await validateUser(userToken);
+
         if (verifyResult.success) {
-          const userFullName = `${verifyResult.firstName} ${verifyResult.lastName}`;
+          const userFullName = `${verifyResult.name}`;
           setUser(userFullName);
+
+          const info = verifyResult;
+          setUserInfo(info);
           setIsVerified(true);
         } else {
           setShouldRefresh(false);
@@ -55,6 +61,9 @@ function App() {
           user,
           isVerified,
           userToken,
+          userInfo,
+          setCurrentItem,
+          currentItem,
         }}
       />
     </div>
