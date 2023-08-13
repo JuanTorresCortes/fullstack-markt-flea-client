@@ -1,16 +1,48 @@
-import React from "react";
-import { useOutletContext } from "react-router-dom";
-import { Card, Button, Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Import if you want to link the button to the home page
+import React, { useState } from "react"; // Import useState
+import { useNavigate, useOutletContext } from "react-router-dom";
+import { Card, Button, Container, Row, Col, Alert } from "react-bootstrap"; // Import Alert
+import { Link } from "react-router-dom";
+import { addCartItem } from "../Api/api";
 
 const ItemPage = () => {
-  const { userInfo, currentItem } = useOutletContext();
+  const { userInfo, currentItem, userToken } = useOutletContext();
+  const navigate = useNavigate();
+
+  // State variable for storing the error message
+  const [error, setError] = useState(null);
+
+  const handleCartButton = async () => {
+    const data = {
+      owner: userInfo._id,
+      productCurrentOwner: currentItem.owner,
+      image: currentItem.image,
+      productName: currentItem.productName,
+      description: currentItem.description,
+      cost: currentItem.cost,
+    };
+    const createResults = await addCartItem(userToken, data);
+
+    if (createResults.success) {
+      navigate("/cart");
+    } else {
+      // Set the error state with the message returned from the server
+      setError(createResults.message);
+    }
+  };
 
   return (
     <Container className="vh-100 d-flex justify-content-center align-items-center">
       <Row>
         <Col md="auto">
-          <Card style={{ width: "30rem" }}>
+          {/* Display an alert if there's an error */}
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Card
+            style={{
+              width: "30rem",
+              border: "12px solid black", // Black border
+              boxShadow: "0 8px 16px rgba(0,0,0,0.5)", // Enhanced box shadow
+            }}
+          >
             <Card.Img
               variant="top"
               src={currentItem.image}
@@ -21,10 +53,13 @@ const ItemPage = () => {
               <Card.Text>{currentItem.description}</Card.Text>
               <h5>Cost: ${currentItem.cost}</h5>{" "}
               <small>qty{currentItem.quantity}</small>{" "}
-              <Button variant="primary" className="mr-2">
+              <Button
+                variant="primary"
+                className="mr-2"
+                onClick={handleCartButton}
+              >
                 Add to Cart
               </Button>
-              {/* Use Link to route to the home page, or replace with a custom function */}
               <Link to="/">
                 <Button variant="primary" className="ml-2">
                   Back Home

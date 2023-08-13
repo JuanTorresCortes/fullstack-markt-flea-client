@@ -124,6 +124,56 @@ const deleteProduct = async (userToken, id) => {
   }
 };
 
+const addCartItem = async (token, cartItemData) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/cartItems/add-CartItem`,
+      cartItemData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const getAllCartItems = async (token) => {
+  try {
+    const response = await axios.get(`${baseUrl}/cartItems/all-cart-items`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const deleteCartItem = async (token, id) => {
+  try {
+    const response = await axios.delete(
+      `${baseUrl}/cartItems/delete-CartItem/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+// Add these functions to the existing export statement
 export {
   registerUser,
   loginUser,
@@ -133,4 +183,7 @@ export {
   editProduct,
   getPostedProducts,
   deleteProduct,
+  addCartItem,
+  getAllCartItems,
+  deleteCartItem,
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import { getPostedProducts } from "../Api/api";
 import HomeCardComponent from "../Components/HomeCardComponent";
 import { useOutletContext } from "react-router-dom";
@@ -13,32 +13,35 @@ const Home = () => {
     const getProducts = async () => {
       const productResponse = await getPostedProducts();
       if (productResponse.success) {
-        setPostedProduct([...productResponse.products]); // Change this line according to the actual structure
+        setPostedProduct([...productResponse.products]);
       }
     };
     getProducts();
   }, [shouldRefresh]);
 
   return (
-    <Container style={{ marginTop: "60px" }}>
-      {" "}
-      {/* Added top margin here */}
-      <Row>
+    <Container style={{ marginTop: "65px" }}>
+      <Row className="justify-content-center">
         {postedProduct &&
           postedProduct.map((item) => (
-            <Col
-              xs={12}
-              sm={6}
-              md={4}
-              lg={2}
-              style={{ margin: "7px" }}
-              key={item._id}
-            >
-              <HomeCardComponent
-                product={item}
-                isVerified={isVerified}
-                setCurrentItem={setCurrentItem}
-              />
+            <Col xs={12} sm={6} md={4} lg={3} key={item._id} className="mb-4">
+              <Card className="card-container">
+                {" "}
+                {/* Applying the CSS class */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <HomeCardComponent
+                    product={item}
+                    isVerified={isVerified}
+                    setCurrentItem={setCurrentItem}
+                  />
+                </div>
+              </Card>
             </Col>
           ))}
       </Row>

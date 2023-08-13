@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { deleteProduct } from "../Api/api";
 
-const CardComponent = ({ product, handlePost, userToken }) => {
+const CardComponent = ({ product, handlePost, userToken, isCurrentUser }) => {
   // Initialize the state as false
   const [isPosted, setIsPosted] = useState(product.isPosted);
 
@@ -31,9 +31,12 @@ const CardComponent = ({ product, handlePost, userToken }) => {
     deleteProduct(userToken, product._id);
     navigate("/");
   };
+  console.log("Product Owner ID:", product.owner);
+  console.log("Is Current User:", isCurrentUser);
 
   return (
     <Card style={{ width: "18rem", height: "100%" }}>
+      {isCurrentUser && <Badge variant="primary">Posted by Me</Badge>}
       <Card.Img
         variant="top"
         src={imageBase64}
@@ -56,4 +59,5 @@ const CardComponent = ({ product, handlePost, userToken }) => {
     </Card>
   );
 };
+
 export default CardComponent;

@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #0f1111;
+  background-color: #7c7c7c;
   height: 100vh;
   overflow: scroll;
 }
@@ -16,4 +16,13 @@
   border: 3px solid black;
   border-radius: 20px;
   padding: 1em;
+}
+
+.card-container {
+  transition: 0.3s;
+  border: 10px solid #e0e0e0;
+}
+
+.card-container:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 12);
 }

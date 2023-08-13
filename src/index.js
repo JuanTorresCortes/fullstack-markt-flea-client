@@ -9,6 +9,7 @@ import Products from "./Pages/Products";
 import ProductForm from "./Components/ProductForm";
 import Home from "./Pages/Home";
 import ItemPage from "./Pages/ItemPage";
+import Cart from "./Pages/Cart";
 import reportWebVitals from "./reportWebVitals";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "itemPage",
         element: <ItemPage />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
       {
         path: "register",
