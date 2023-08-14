@@ -1,11 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
-import { useOutletContext } from "react-router-dom";
-import { getAllCartItems } from "../Api/api";
+import { Table, Button } from "react-bootstrap";
+import { useOutletContext, useNavigate } from "react-router-dom";
+import { getAllCartItems, deleteCartItem } from "../Api/api";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
-  const { userToken } = useOutletContext(); // Assuming userToken is available in context
+  const { userToken } = useOutletContext();
+  const navigate = useNavigate();
+
+  const handleMakeOffer = (item) => {
+    // Handle making an offer logic here
+    console.log("Making offer for:", item);
+  };
+
+  const handleDelete = async (item) => {
+    try {
+      // Call the deleteCartItem API method
+      const response = await deleteCartItem(userToken, item._id);
+
+      if (response.success) {
+        // If the deletion was successful, filter out the deleted item from the cartItems array
+        const updatedCartItems = cartItems.filter(
+          (cartItem) => cartItem._id !== item._id
+        );
+        setCartItems(updatedCartItems);
+      } else {
+        // Handle the error here if needed
+        console.error("Error deleting the item:", response.error);
+      }
+    } catch (error) {
+      // Handle any other errors that may occur during the deletion
+      console.error("An error occurred while deleting the item:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,12 +41,11 @@ const Cart = () => {
         setCartItems(data.data); // Assuming the items are in the data property
       }
     };
-    console.log(cartItems);
     fetchData();
-  }, [userToken, cartItems]);
+  }, [userToken]);
 
   return (
-    <div>
+    <div style={{ marginRight: "px" }}>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -27,7 +53,7 @@ const Cart = () => {
             <th>Product Name</th>
             <th>Description</th>
             <th>Cost</th>
-            {/* Add more columns as needed */}
+            <th>Actions</th> {/* Header for actions column */}
           </tr>
         </thead>
         <tbody>
@@ -39,7 +65,18 @@ const Cart = () => {
               <td>{item.productName}</td>
               <td>{item.description}</td>
               <td>${item.cost}</td>
-              {/* Render more columns as needed */}
+              <td>
+                <Button
+                  style={{ marginRight: "10px" }}
+                  onClick={() => handleMakeOffer(item)}
+                >
+                  Make Offer
+                </Button>
+                <Button variant="danger" onClick={() => handleDelete(item)}>
+                  Delete
+                </Button>
+              </td>{" "}
+              {/* Buttons column */}
             </tr>
           ))}
         </tbody>

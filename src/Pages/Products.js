@@ -5,8 +5,7 @@ import CardComponent from "../Components/CardComponent";
 
 const Products = () => {
   const { product, handlePost, userToken, userInfo, setShouldRefresh } =
-    useOutletContext(); // Assuming userInfo contains user details
-  console.log("Current User ID:", userInfo._id);
+    useOutletContext();
 
   return (
     <Container>
@@ -22,9 +21,9 @@ const Products = () => {
           >
             <CardComponent
               product={item}
+              userInfo={userInfo}
               handlePost={handlePost}
               userToken={userToken}
-              isCurrentUser={item.owner === userInfo._id} // Compare owner with current user's ID
             />
           </Col>
         ))}

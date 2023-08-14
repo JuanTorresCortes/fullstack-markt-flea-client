@@ -53,8 +53,8 @@ const NavBarMain = ({
             ) : (
               <React.Fragment>
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/products">myPage</Nav.Link>
                 <Nav.Link href="/products/add-product">Add Product</Nav.Link>
+                <Nav.Link href="/products">myProducts</Nav.Link>
                 <Nav.Link href="/cart">cart</Nav.Link>
 
                 <NavDropdown title="my profile" id="navbarScrollingDropdown">

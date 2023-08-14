@@ -5,7 +5,8 @@ import HomeCardComponent from "../Components/HomeCardComponent";
 import { useOutletContext } from "react-router-dom";
 
 const Home = () => {
-  const { isVerified, setCurrentItem } = useOutletContext();
+  const { isVerified, setCurrentItem, userInfo, currentItem } =
+    useOutletContext();
   const [postedProduct, setPostedProduct] = useState([]);
   const [shouldRefresh, setShouldRefresh] = useState(false);
 
@@ -39,6 +40,8 @@ const Home = () => {
                     product={item}
                     isVerified={isVerified}
                     setCurrentItem={setCurrentItem}
+                    currentItem={currentItem}
+                    userInfo={userInfo}
                   />
                 </div>
               </Card>
