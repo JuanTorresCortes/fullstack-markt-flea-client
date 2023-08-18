@@ -29,6 +29,7 @@ import {
   faEnvelope,
   faUser,
   faSignOutAlt,
+  faCar,
 } from "@fortawesome/free-solid-svg-icons";
 
 const NavBarMain = ({
@@ -165,6 +166,9 @@ const NavBarMain = ({
               onClick={() => handleCategoryClick("pets & pet supplies")}
             >
               <FontAwesomeIcon icon={faPaw} /> Pets & Pet Supplies
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={() => handleCategoryClick("vehicles")}>
+              <FontAwesomeIcon icon={faCar} /> Vehicles
             </NavDropdown.Item>
             <NavDropdown.Item
               onClick={() => handleCategoryClick("miscellaneous")}

@@ -26,3 +26,105 @@
 .card-container:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 12);
 }
+
+/* .blur-enter,
+.blur-exit {
+  filter: blur(10px);
+}
+.blur-enter-active,
+.blur-exit-active {
+  filter: blur(0);
+  transition: filter 500ms ease-in-out;
+} */
+
+/* .reveal-enter {
+  clip-path: inset(100% 0 0 0);
+}
+.reveal-enter-active {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 500ms ease-in-out;
+}
+.reveal-exit {
+  clip-path: inset(0 0 0 0);
+}
+.reveal-exit-active {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 500ms ease-in-out;
+} */
+
+/* .parallax-background {
+  background-attachment: fixed;
+}
+.parallax-foreground {
+  transform: translate3d(0, 0, 0);
+} */
+
+/* .cube-enter {
+  transform: perspective(600px) rotateX(90deg);
+}
+.cube-enter-active {
+  transform: perspective(600px) rotateX(0deg);
+  transition: transform 500ms ease-in-out;
+}
+.cube-exit {
+  transform: perspective(600px) rotateX(0deg);
+}
+.cube-exit-active {
+  transform: perspective(600px) rotateX(-90deg);
+  transition: transform 500ms ease-in-out;
+} */
+
+/* .flip-enter,
+.flip-exit {
+  transform: rotateY(0deg);
+}
+.flip-enter-active,
+.flip-exit-active {
+  transform: rotateY(180deg);
+  transition: transform 500ms ease-in-out;
+} */
+
+/* .rotate-enter,
+.rotate-exit {
+  transform: rotate(0deg);
+}
+.rotate-enter-active,
+.rotate-exit-active {
+  transform: rotate(360deg);
+  transition: transform 500ms ease-in-out;
+} */
+
+.zoom-enter,
+.zoom-exit {
+  transform: scale(0);
+}
+.zoom-enter-active,
+.zoom-exit-active {
+  transform: scale(1);
+  transition: transform 500ms ease-in-out;
+}
+
+/* .slide-enter {
+  transform: translateX(100%);
+}
+.slide-enter-active {
+  transform: translateX(0);
+  transition: transform 500ms ease-in-out;
+}
+.slide-exit {
+  transform: translateX(0);
+}
+.slide-exit-active {
+  transform: translateX(-100%);
+  transition: transform 500ms ease-in-out;
+} */
+
+/* .fade-enter,
+.fade-exit {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-exit-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+} */

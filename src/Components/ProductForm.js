@@ -97,6 +97,7 @@ const ProductForm = () => {
             <option value="movies">Movies</option>
             <option value="toys & games">Toys & Games</option>
             <option value="pets & pet supplies">Pets & Pet Supplies</option>
+            <option value="vehicles">Vehicles</option>
             <option value="miscellaneous">Miscellaneous</option>
           </Form.Control>
         </Form.Group>

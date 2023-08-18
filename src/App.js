@@ -1,8 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { getUserToken, removeUserToken } from "./Auth/authLocalStorage";
 import { validateUser, getUserMessages } from "./Api/api";
 import "./App.css";
@@ -20,27 +21,12 @@ function App() {
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const [postedProduct, setPostedProduct] = useState([]);
 
-  // const showNotification = () => {
-  //   if (window.Notification && Notification.permission === "granted") {
-  //     const notification = new Notification("New Message Received", {
-  //       body: "You have a new message in your dashboard.",
-  //     });
-  //   } else if (window.Notification && Notification.permission !== "denied") {
-  //     Notification.requestPermission().then((permission) => {
-  //       if (permission === "granted") {
-  //         const notification = new Notification("New Message Received", {
-  //           body: "You have a new message in your dashboard.",
-  //         });
-  //       }
-  //     });
-  //   }
-  // };
+  const location = useLocation();
 
   const checkMessages = async () => {
     if (userToken) {
       const response = await getUserMessages(userToken);
       if (response.success && response.messages.length > 0) {
-        // showNotification();
         setHasNewMessage(true);
       }
     }
@@ -94,25 +80,28 @@ function App() {
         setShouldRefresh={setShouldRefresh}
         hasNewMessage={hasNewMessage}
       />
-
-      <Outlet
-        context={{
-          setShouldRefresh,
-          user,
-          isVerified,
-          setIsVerified,
-          userToken,
-          userInfo,
-          setUser,
-          setCurrentItem,
-          currentItem,
-          hasNewMessage,
-          setHasNewMessage,
-          setUserToken,
-          postedProduct,
-          setPostedProduct,
-        }}
-      />
+      <TransitionGroup>
+        <CSSTransition key={location.key} timeout={500} classNames="zoom">
+          <Outlet
+            context={{
+              setShouldRefresh,
+              user,
+              isVerified,
+              setIsVerified,
+              userToken,
+              userInfo,
+              setUser,
+              setCurrentItem,
+              currentItem,
+              hasNewMessage,
+              setHasNewMessage,
+              setUserToken,
+              postedProduct,
+              setPostedProduct,
+            }}
+          />
+        </CSSTransition>
+      </TransitionGroup>
     </div>
   );
 }

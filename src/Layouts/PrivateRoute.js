@@ -40,7 +40,6 @@ const PrivateRoute = () => {
       <>
         <h3>myPage</h3>
         <Outlet
-          // don't forget handleDelete, handelEdit
           context={{
             createProduct,
             product,
