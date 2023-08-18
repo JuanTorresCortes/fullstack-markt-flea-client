@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Container,
@@ -6,9 +6,30 @@ import {
   Nav,
   Navbar,
   NavDropdown,
+  Badge,
 } from "react-bootstrap";
 import { removeUserToken } from "../Auth/authLocalStorage";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBook,
+  faHeartbeat,
+  faLaptop,
+  faHome,
+  faTshirt,
+  faWrench,
+  faFutbol,
+  faFilm,
+  faGamepad,
+  faPaw,
+  faAsterisk,
+  faPlus,
+  faList,
+  faShoppingCart,
+  faEnvelope,
+  faUser,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 const NavBarMain = ({
   isVerified,
@@ -16,8 +37,11 @@ const NavBarMain = ({
   setShouldRefresh,
   setUser,
   setIsVerified,
+  hasNewMessage,
 }) => {
   const navigate = useNavigate();
+  const [category, setCategory] = useState("");
+
   const handleLogout = async () => {
     setShouldRefresh(true);
 
@@ -32,10 +56,23 @@ const NavBarMain = ({
     }
   };
 
+  const handleCategoryClick = (category) => {
+    // Handle the category selection and pass the value down to the Search page
+    setCategory(category);
+    navigate(`/search?category=${category}`);
+  };
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
       <Container fluid>
         <Navbar.Brand href="/">Market Flea</Navbar.Brand>
+        {isVerified && (
+          <Navbar.Collapse className="justify-content-start">
+            <Navbar.Text>
+              Signed in as: <a href="/products">{user}</a>
+            </Navbar.Text>
+          </Navbar.Collapse>
+        )}
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -43,8 +80,6 @@ const NavBarMain = ({
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            {/* this is a nav link AO */}
-
             {!isVerified ? (
               <React.Fragment>
                 <Nav.Link href="/login">Login</Nav.Link>
@@ -52,45 +87,91 @@ const NavBarMain = ({
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/products/add-product">Add Product</Nav.Link>
-                <Nav.Link href="/products">myProducts</Nav.Link>
-                <Nav.Link href="/cart">cart</Nav.Link>
-
-                <NavDropdown title="my profile" id="navbarScrollingDropdown">
-                  <NavDropdown.Item href="#action4">
-                    my transactions
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#action3">my post</NavDropdown.Item>
-                  <NavDropdown.Item href="#action3">
-                    my messages
-                  </NavDropdown.Item>
-
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5">
-                    my profile
-                  </NavDropdown.Item>
-                </NavDropdown>
-
-                <Navbar.Collapse className="justify-content-end">
-                  <Navbar.Text>
-                    Signed in as: <a href="/products">{user}</a>
-                  </Navbar.Text>
-                </Navbar.Collapse>
-                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                <Nav.Link href="/">
+                  <FontAwesomeIcon icon={faHome} /> Home
+                </Nav.Link>
+                <Nav.Link href="/products/add-product">
+                  <FontAwesomeIcon icon={faPlus} /> Add Product
+                </Nav.Link>
+                <Nav.Link href="/products">
+                  <FontAwesomeIcon icon={faList} /> myProducts
+                </Nav.Link>
+                <Nav.Link href="/cart">
+                  <FontAwesomeIcon icon={faShoppingCart} /> cart
+                </Nav.Link>
+                <Nav.Link href="/messageDashboard">
+                  <FontAwesomeIcon icon={faEnvelope} /> messages{" "}
+                  {hasNewMessage && (
+                    <Badge pill bg="danger">
+                      New
+                    </Badge>
+                  )}
+                </Nav.Link>
+                <Nav.Link href="/profile">
+                  <FontAwesomeIcon icon={faUser} /> myProfile
+                </Nav.Link>
+                <Nav.Link onClick={handleLogout}>
+                  <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                </Nav.Link>
               </React.Fragment>
             )}
           </Nav>
 
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
+          <NavDropdown
+            title="Search Categories"
+            id="navbarScrollingDropdown"
+            style={{ marginRight: "80px" }}
+          >
+            <NavDropdown.Item onClick={() => handleCategoryClick("books")}>
+              <FontAwesomeIcon icon={faBook} /> Books
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              onClick={() => handleCategoryClick("health & beauty")}
+            >
+              <FontAwesomeIcon icon={faHeartbeat} /> Health & Beauty
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              onClick={() => handleCategoryClick("electronics")}
+            >
+              <FontAwesomeIcon icon={faLaptop} /> Electronics
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              onClick={() => handleCategoryClick("home & kitchen")}
+            >
+              <FontAwesomeIcon icon={faHome} /> Home & Kitchen
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              onClick={() => handleCategoryClick("clothing & accessories")}
+            >
+              <FontAwesomeIcon icon={faTshirt} /> Clothing & Accessories
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={() => handleCategoryClick("tools")}>
+              <FontAwesomeIcon icon={faWrench} /> Tools
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              onClick={() => handleCategoryClick("sports & outdoors")}
+            >
+              <FontAwesomeIcon icon={faFutbol} /> Sports & Outdoors
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={() => handleCategoryClick("movies")}>
+              <FontAwesomeIcon icon={faFilm} /> Movies
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              onClick={() => handleCategoryClick("toys & games")}
+            >
+              <FontAwesomeIcon icon={faGamepad} /> Toys & Games
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              onClick={() => handleCategoryClick("pets & pet supplies")}
+            >
+              <FontAwesomeIcon icon={faPaw} /> Pets & Pet Supplies
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              onClick={() => handleCategoryClick("miscellaneous")}
+            >
+              <FontAwesomeIcon icon={faAsterisk} /> Miscellaneous
+            </NavDropdown.Item>
+          </NavDropdown>
         </Navbar.Collapse>
       </Container>
     </Navbar>

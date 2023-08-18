@@ -173,6 +173,84 @@ const deleteCartItem = async (token, id) => {
   }
 };
 
+const sendUserMessage = async (senderId, receiverId, content) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/messages/send/${senderId}/${receiverId}`,
+      { content }
+    );
+
+    if (response.data.success) {
+      return { success: true, message: response.data.message };
+    } else {
+      return { success: false, message: response.data.message };
+    }
+  } catch (error) {
+    console.error("Error sending message:", error);
+    return {
+      success: false,
+      message: "An error occurred while sending the message.",
+    };
+  }
+};
+
+const getUserMessages = async (userToken) => {
+  try {
+    const response = await axios.get(`${baseUrl}/messages/user-messages`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const deleteUserMessage = async (userToken, userId, messageId) => {
+  try {
+    const response = await axios.delete(
+      `${baseUrl}/messages/delete-message/${userId}/${messageId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const getUserInfo = async (token, id) => {
+  try {
+    const response = await axios.get(`${baseUrl}/users/getUserInfo/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const deleteProfile = async (token, id) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/users/delete-user/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 // Add these functions to the existing export statement
 export {
   registerUser,
@@ -186,4 +264,9 @@ export {
   addCartItem,
   getAllCartItems,
   deleteCartItem,
+  sendUserMessage,
+  getUserMessages,
+  deleteUserMessage,
+  getUserInfo,
+  deleteProfile,
 };

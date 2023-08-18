@@ -10,11 +10,11 @@ import ProductForm from "./Components/ProductForm";
 import Home from "./Pages/Home";
 import ItemPage from "./Pages/ItemPage";
 import Cart from "./Pages/Cart";
+import Profile from "./Pages/Profile";
+import MessageDashboard from "./Pages/MessageDashboard";
 import reportWebVitals from "./reportWebVitals";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { motion } from "framer-motion";
-import { AnimatePresence } from "framer-motion";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +41,14 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
-
+      {
+        path: "messageDashboard",
+        element: <MessageDashboard />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
       {
         path: "products",
         element: <PrivateRoute />,
