@@ -1,35 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { getPostedProducts } from "../Api/api";
 import HomeCardComponent from "../Components/HomeCardComponent";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 
-const Home = () => {
+const SearchCategory = () => {
   const {
+    postedProduct,
     isVerified,
     setCurrentItem,
     userInfo,
     currentItem,
-    postedProduct,
     setPostedProduct,
   } = useOutletContext();
-  const [shouldRefresh, setShouldRefresh] = useState(false);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const productResponse = await getPostedProducts();
-      if (productResponse.success) {
-        setPostedProduct([...productResponse.products]);
-      }
-    };
-    getProducts();
-  }, [shouldRefresh]);
+  const { category } = useParams();
+  //console.log("Selected category:", category);
 
+  const filteredProducts = postedProduct.filter(
+    (item) =>
+      item.categories &&
+      item.categories.toLowerCase() === category.toLowerCase()
+  );
+  //console.log("Posted products:", postedProduct);
   return (
     <Container style={{ marginTop: "65px" }}>
       <Row className="justify-content-center">
-        {postedProduct &&
-          postedProduct.map((item) => (
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((item) => (
             <Col xs={12} sm={6} md={4} lg={3} key={item._id} className="mb-4">
               <Card className="card-container">
                 {" "}
@@ -51,10 +48,13 @@ const Home = () => {
                 </div>
               </Card>
             </Col>
-          ))}
+          ))
+        ) : (
+          <p>Sorry, there are no items posted in this category.</p>
+        )}
       </Row>
     </Container>
   );
 };
 
-export default Home;
+export default SearchCategory;

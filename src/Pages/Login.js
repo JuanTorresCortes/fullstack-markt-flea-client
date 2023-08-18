@@ -4,17 +4,17 @@ import { setUserToken } from "../Auth/authLocalStorage";
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 const Login = () => {
-  const [email, setEmail] = useState(""); // State variable to store the email input value
-  const [password, setPassword] = useState(""); // State variable to store the password input value
-  const [error, setError] = useState(""); // State variable to store any login error messages
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const { setShouldRefresh } = useOutletContext();
   const navigate = useNavigate();
 
   // Function to handle form submission when the user clicks the submit button
   const handleOnSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-    setShouldRefresh(true); // Set the shouldRefresh state to true to refresh the outlet context
+    e.preventDefault();
+    setShouldRefresh(true);
 
     // Create a data object with the email and password to be sent to the server
     const data = {

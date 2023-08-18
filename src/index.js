@@ -12,6 +12,7 @@ import ItemPage from "./Pages/ItemPage";
 import Cart from "./Pages/Cart";
 import Profile from "./Pages/Profile";
 import MessageDashboard from "./Pages/MessageDashboard";
+import SearchCategory from "./Pages/SearchCategory";
 import reportWebVitals from "./reportWebVitals";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "search-category/:category",
+        element: <SearchCategory />,
       },
       {
         path: "products",

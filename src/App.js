@@ -18,6 +18,7 @@ function App() {
   const [userInfo, setUserInfo] = useState({});
   const [currentItem, setCurrentItem] = useState({});
   const [hasNewMessage, setHasNewMessage] = useState(false);
+  const [postedProduct, setPostedProduct] = useState([]);
 
   // const showNotification = () => {
   //   if (window.Notification && Notification.permission === "granted") {
@@ -108,6 +109,8 @@ function App() {
           hasNewMessage,
           setHasNewMessage,
           setUserToken,
+          postedProduct,
+          setPostedProduct,
         }}
       />
     </div>

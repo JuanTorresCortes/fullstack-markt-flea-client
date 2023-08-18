@@ -59,7 +59,7 @@ const NavBarMain = ({
   const handleCategoryClick = (category) => {
     // Handle the category selection and pass the value down to the Search page
     setCategory(category);
-    navigate(`/search?category=${category}`);
+    navigate(`/search-category/${category}`);
   };
 
   return (

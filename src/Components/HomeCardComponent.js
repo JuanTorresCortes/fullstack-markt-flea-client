@@ -39,7 +39,7 @@ const HomeCardComponent = ({
       };
 
       setCurrentItem(data);
-      navigate("ItemPage");
+      navigate("/ItemPage");
     }
   };
 
