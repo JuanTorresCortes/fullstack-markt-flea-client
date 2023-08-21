@@ -9,7 +9,7 @@ import {
   Badge,
 } from "react-bootstrap";
 import { removeUserToken } from "../Auth/authLocalStorage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBook,
@@ -39,8 +39,10 @@ const NavBarMain = ({
   setUser,
   setIsVerified,
   hasNewMessage,
+  postedProduct,
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [category, setCategory] = useState("");
 
   const handleLogout = async () => {
@@ -117,65 +119,69 @@ const NavBarMain = ({
               </React.Fragment>
             )}
           </Nav>
-
-          <NavDropdown
-            title="Search Categories"
-            id="navbarScrollingDropdown"
-            style={{ marginRight: "80px" }}
-          >
-            <NavDropdown.Item onClick={() => handleCategoryClick("books")}>
-              <FontAwesomeIcon icon={faBook} /> Books
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              onClick={() => handleCategoryClick("health & beauty")}
+          {/* if the pathname property of the location object is
+           equal to "/", conditionally render the NavDropdown
+            component based on this check. */}
+          {location.pathname === "/" && (
+            <NavDropdown
+              title="Search Categories"
+              id="navbarScrollingDropdown"
+              style={{ marginRight: "80px" }}
             >
-              <FontAwesomeIcon icon={faHeartbeat} /> Health & Beauty
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              onClick={() => handleCategoryClick("electronics")}
-            >
-              <FontAwesomeIcon icon={faLaptop} /> Electronics
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              onClick={() => handleCategoryClick("home & kitchen")}
-            >
-              <FontAwesomeIcon icon={faHome} /> Home & Kitchen
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              onClick={() => handleCategoryClick("clothing & accessories")}
-            >
-              <FontAwesomeIcon icon={faTshirt} /> Clothing & Accessories
-            </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => handleCategoryClick("tools")}>
-              <FontAwesomeIcon icon={faWrench} /> Tools
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              onClick={() => handleCategoryClick("sports & outdoors")}
-            >
-              <FontAwesomeIcon icon={faFutbol} /> Sports & Outdoors
-            </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => handleCategoryClick("movies")}>
-              <FontAwesomeIcon icon={faFilm} /> Movies
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              onClick={() => handleCategoryClick("toys & games")}
-            >
-              <FontAwesomeIcon icon={faGamepad} /> Toys & Games
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              onClick={() => handleCategoryClick("pets & pet supplies")}
-            >
-              <FontAwesomeIcon icon={faPaw} /> Pets & Pet Supplies
-            </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => handleCategoryClick("vehicles")}>
-              <FontAwesomeIcon icon={faCar} /> Vehicles
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              onClick={() => handleCategoryClick("miscellaneous")}
-            >
-              <FontAwesomeIcon icon={faAsterisk} /> Miscellaneous
-            </NavDropdown.Item>
-          </NavDropdown>
+              <NavDropdown.Item onClick={() => handleCategoryClick("books")}>
+                <FontAwesomeIcon icon={faBook} /> Books
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => handleCategoryClick("health & beauty")}
+              >
+                <FontAwesomeIcon icon={faHeartbeat} /> Health & Beauty
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => handleCategoryClick("electronics")}
+              >
+                <FontAwesomeIcon icon={faLaptop} /> Electronics
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => handleCategoryClick("home & kitchen")}
+              >
+                <FontAwesomeIcon icon={faHome} /> Home & Kitchen
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => handleCategoryClick("clothing & accessories")}
+              >
+                <FontAwesomeIcon icon={faTshirt} /> Clothing & Accessories
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => handleCategoryClick("tools")}>
+                <FontAwesomeIcon icon={faWrench} /> Tools
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => handleCategoryClick("sports & outdoors")}
+              >
+                <FontAwesomeIcon icon={faFutbol} /> Sports & Outdoors
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => handleCategoryClick("movies")}>
+                <FontAwesomeIcon icon={faFilm} /> Movies
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => handleCategoryClick("toys & games")}
+              >
+                <FontAwesomeIcon icon={faGamepad} /> Toys & Games
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => handleCategoryClick("pets & pet supplies")}
+              >
+                <FontAwesomeIcon icon={faPaw} /> Pets & Pet Supplies
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => handleCategoryClick("vehicles")}>
+                <FontAwesomeIcon icon={faCar} /> Vehicles
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => handleCategoryClick("miscellaneous")}
+              >
+                <FontAwesomeIcon icon={faAsterisk} /> Miscellaneous
+              </NavDropdown.Item>
+            </NavDropdown>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

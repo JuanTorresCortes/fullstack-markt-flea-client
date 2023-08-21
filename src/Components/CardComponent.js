@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { Card, Button, Form } from "react-bootstrap";
+import { Card, Button, Form, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { deleteProduct, editProduct } from "../Api/api";
+//@fortawesome/react-fontawesome package to import and use Font Awesome icons as React components.
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTrash,
+  faEdit,
+  faCheck,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 const CardComponent = ({ product, handlePost, userToken }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isPosted, setIsPosted] = useState(product.isPosted);
   const [editedProduct, setEditedProduct] = useState(product);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   const imageBase64 =
@@ -42,94 +51,114 @@ const CardComponent = ({ product, handlePost, userToken }) => {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDeleteConfirmation = () => {
+    setShowModal(true);
+  };
+
+  const handleDeleteConfirmed = async () => {
     deleteProduct(userToken, product._id);
     navigate("/");
   };
 
   return (
-    <Card style={{ width: "18rem", height: "100%" }}>
-      {isEditing ? (
-        <Form>
-          <Form.Group>
-            <Form.Label>Product Name</Form.Label>
-            <Form.Control
-              type="text"
-              name="productName"
-              value={editedProduct.productName}
-              onChange={handleEditChange}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              type="text"
-              name="description"
-              value={editedProduct.description}
-              onChange={handleEditChange}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Cost</Form.Label>
-            <Form.Control
-              type="number"
-              name="cost"
-              value={editedProduct.cost}
-              onChange={handleEditChange}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Quantity</Form.Label>
-            <Form.Control
-              type="number"
-              name="quantity"
-              value={editedProduct.quantity}
-              onChange={handleEditChange}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Category</Form.Label>
-            <Form.Control
-              type="text"
-              name="categories"
-              value={editedProduct.categories}
-              onChange={handleEditChange}
-            />
-          </Form.Group>
-          <Button variant="primary" onClick={handleEditSubmit}>
-            Submit
+    <>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Deletion</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this product?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            <FontAwesomeIcon icon={faTimes} /> Cancel
           </Button>
-          <Button variant="info" onClick={() => setIsEditing(false)}>
-            Cancel
+          <Button variant="danger" onClick={handleDeleteConfirmed}>
+            <FontAwesomeIcon icon={faCheck} /> Confirm
           </Button>
-        </Form>
-      ) : (
-        <>
-          <Card.Img
-            variant="top"
-            src={imageBase64}
-            alt={product.productName}
-            style={{ height: "150px", objectFit: "cover" }}
-          />
-          <Card.Body>
-            <Card.Title>{editedProduct.productName}</Card.Title>
-            <Card.Text>{editedProduct.description}</Card.Text>
-            <Card.Text>Cost: ${editedProduct.cost}</Card.Text>
-            <Card.Text>Quantity: {editedProduct.quantity}</Card.Text>
-            <Card.Text>Category: {editedProduct.categories}</Card.Text>
-          </Card.Body>
-          <Button variant={isPosted ? "warning" : "success"} onClick={post}>
-            {product.isPosted ? "Un-post" : "Post"}
-          </Button>
-          <Button variant={"danger"} onClick={handleDelete}>
-            Delete
-          </Button>
-          <Button variant="info" onClick={() => setIsEditing(true)}>
-            Edit
-          </Button>
-        </>
-      )}
-    </Card>
+        </Modal.Footer>
+      </Modal>
+      <Card style={{ width: "18rem", height: "100%", marginTop: "2rem" }}>
+        {isEditing ? (
+          <Form>
+            <Form.Group>
+              <Form.Label>Product Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="productName"
+                value={editedProduct.productName}
+                onChange={handleEditChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                type="text"
+                name="description"
+                value={editedProduct.description}
+                onChange={handleEditChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Cost</Form.Label>
+              <Form.Control
+                type="number"
+                name="cost"
+                value={editedProduct.cost}
+                onChange={handleEditChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Quantity</Form.Label>
+              <Form.Control
+                type="number"
+                name="quantity"
+                value={editedProduct.quantity}
+                onChange={handleEditChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Category</Form.Label>
+              <Form.Control
+                type="text"
+                name="categories"
+                value={editedProduct.categories}
+                onChange={handleEditChange}
+              />
+            </Form.Group>
+            <Button variant="primary" onClick={handleEditSubmit}>
+              Submit
+            </Button>
+            <Button variant="info" onClick={() => setIsEditing(false)}>
+              Cancel
+            </Button>
+          </Form>
+        ) : (
+          <>
+            <Card.Img
+              variant="top"
+              src={imageBase64}
+              alt={product.productName}
+              style={{ height: "150px", objectFit: "cover" }}
+            />
+            <Card.Body>
+              <Card.Title>{editedProduct.productName}</Card.Title>
+              <Card.Text>{editedProduct.description}</Card.Text>
+              <Card.Text>Cost: ${editedProduct.cost}</Card.Text>
+              <Card.Text>Quantity: {editedProduct.quantity}</Card.Text>
+              <Card.Text>Category: {editedProduct.categories}</Card.Text>
+            </Card.Body>
+            <Button variant={isPosted ? "warning" : "success"} onClick={post}>
+              {product.isPosted ? "Un-post" : "Post"}
+            </Button>
+            <Button variant="danger" onClick={handleDeleteConfirmation}>
+              <FontAwesomeIcon icon={faTrash} />
+            </Button>
+            <Button variant="info" onClick={() => setIsEditing(true)}>
+              <FontAwesomeIcon icon={faEdit} />
+            </Button>
+          </>
+        )}
+      </Card>
+    </>
   );
 };
 

@@ -16,7 +16,7 @@ const HomeCardComponent = ({
       setIsCurrentUser(true);
     }
   }, [product, userInfo]);
-
+  console.log(userInfo);
   const imageBase64 =
     product.image && product.image.data
       ? `data:image/jpeg;base64,${btoa(
@@ -45,7 +45,9 @@ const HomeCardComponent = ({
 
   return (
     <Card style={{ width: "18rem", height: "100%" }}>
-      {isCurrentUser && <Badge variant="primary">Posted by Me</Badge>}
+      {isCurrentUser && (
+        <Badge variant="primary">Posted by {userInfo.name}</Badge>
+      )}
 
       <div onClick={handleBuyButton} style={{ cursor: "pointer" }}>
         <Card.Img

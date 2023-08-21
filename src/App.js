@@ -79,6 +79,7 @@ function App() {
         setUser={setUser}
         setShouldRefresh={setShouldRefresh}
         hasNewMessage={hasNewMessage}
+        postedProduct={postedProduct}
       />
       <TransitionGroup>
         <CSSTransition key={location.key} timeout={500} classNames="zoom">
