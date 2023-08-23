@@ -38,7 +38,6 @@ const PrivateRoute = () => {
   return (
     <div>
       <>
-        <h3>myPage</h3>
         <Outlet
           context={{
             createProduct,

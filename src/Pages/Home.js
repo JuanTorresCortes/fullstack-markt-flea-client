@@ -26,7 +26,7 @@ const Home = () => {
   }, [shouldRefresh]);
 
   return (
-    <Container style={{ marginTop: "65px" }}>
+    <Container style={{ marginTop: "1rem" }}>
       <Row className="justify-content-center">
         {postedProduct &&
           postedProduct.map((item) => (

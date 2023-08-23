@@ -39,7 +39,7 @@ const ProductForm = () => {
 
   return (
     <div className="form-container">
-      <h1>Create Product</h1>
+      <h1>Add Item</h1>
       <Form onSubmit={handleOnSubmit} className="form">
         <Form.Group className="mb-3" controlId="productName">
           <Form.Label>Product Name:</Form.Label>

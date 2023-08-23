@@ -120,9 +120,10 @@ const NavBarMain = ({
             )}
           </Nav>
           {/* if the pathname property of the location object is
-           equal to "/", conditionally render the NavDropdown
+           equal to "/", or startsWith("/search-category") conditionally render the NavDropdown
             component based on this check. */}
-          {location.pathname === "/" && (
+          {(location.pathname === "/" ||
+            location.pathname.startsWith("/search-category/")) && (
             <NavDropdown
               title="Search Categories"
               id="navbarScrollingDropdown"
