@@ -59,7 +59,7 @@
   transform: translate3d(0, 0, 0);
 } */
 
-/* .cube-enter {
+.cube-enter {
   transform: perspective(600px) rotateX(90deg);
 }
 .cube-enter-active {
@@ -72,7 +72,7 @@
 .cube-exit-active {
   transform: perspective(600px) rotateX(-90deg);
   transition: transform 500ms ease-in-out;
-} */
+}
 
 /* .flip-enter,
 .flip-exit {
@@ -94,7 +94,7 @@
   transition: transform 500ms ease-in-out;
 } */
 
-.zoom-enter,
+/* .zoom-enter,
 .zoom-exit {
   transform: scale(0);
 }
@@ -102,7 +102,7 @@
 .zoom-exit-active {
   transform: scale(1);
   transition: transform 500ms ease-in-out;
-}
+} */
 
 /* .slide-enter {
   transform: translateX(100%);
@@ -131,16 +131,56 @@
 
 .banner {
   margin-top: 3rem;
-  background-color: hsl(
-    0,
-    1%,
-    70%
-  ); /* Change this to your desired background color */
-  color: white; /* Change this to your desired text color */
+  background-color: hsl(0, 1%, 70%);
+  color: white;
   padding: 20px 0;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
+}
+
+.top-to-btm {
+  position: relative;
+}
+.icon-position {
+  position: fixed;
+  bottom: 40px;
+  right: 25px;
+  z-index: 20;
+}
+.icon-style {
+  background-color: #551b54;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  color: #fff;
+  cursor: pointer;
+  animation: movebtn 3s ease-in-out infinite;
+  transition: all 0.5s ease-in-out;
+}
+.icon-style:hover {
+  animation: none;
+  background: #fff;
+  color: #551b54;
+  border: 2px solid #551b54;
+}
+@keyframes movebtn {
+  0% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(20px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  75% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }

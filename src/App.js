@@ -1,13 +1,14 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
-import { Navbar, Container } from "react-bootstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { getUserToken, removeUserToken } from "./Auth/authLocalStorage";
 import { validateUser, getUserMessages } from "./Api/api";
 import "./App.css";
 import NavBarMain from "./Components/NavBarMain";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const POLLING_INTERVAL = 30000;
 
@@ -70,6 +71,11 @@ function App() {
     };
   }, [userToken]);
 
+  const top = useRef();
+
+  const goToTop = () => {
+    top.current.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <div className="App">
       <NavBarMain
@@ -81,14 +87,12 @@ function App() {
         hasNewMessage={hasNewMessage}
         postedProduct={postedProduct}
       />
-
-      <div className="banner">
+      <div className="banner" ref={top}>
         <h2>Welcome to Market Flea!</h2> where you can post items for sale or
         buy items at a bargain price
       </div>
-
       <TransitionGroup>
-        <CSSTransition key={location.key} timeout={500} classNames="zoom">
+        <CSSTransition key={location.key} timeout={10000} classNames="cube">
           <Outlet
             context={{
               setShouldRefresh,
@@ -109,21 +113,14 @@ function App() {
           />
         </CSSTransition>
       </TransitionGroup>
-
-      <Navbar fixed="bottom" className="footer">
-        <Container className="text-center">
-          <a
-            href="#"
-            className="back-to-top"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          >
-            Back to Top
-          </a>
-        </Container>
-      </Navbar>
+      <div className="top-to-btm">
+        {" "}
+        <FontAwesomeIcon
+          className="icon-position icon-style"
+          icon={faArrowUp}
+          onClick={goToTop}
+        />{" "}
+      </div>
     </div>
   );
 }

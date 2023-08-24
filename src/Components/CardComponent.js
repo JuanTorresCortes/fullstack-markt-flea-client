@@ -57,7 +57,8 @@ const CardComponent = ({ product, handlePost, userToken }) => {
 
   const handleDeleteConfirmed = async () => {
     deleteProduct(userToken, product._id);
-    navigate("/");
+    // navigate("/");
+    navigate("/products");
   };
 
   return (
@@ -76,7 +77,14 @@ const CardComponent = ({ product, handlePost, userToken }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Card style={{ width: "18rem", height: "100%", marginTop: "2rem" }}>
+      <Card
+        style={{
+          width: "18rem",
+          height: "100%",
+          marginTop: "2rem",
+          border: "solid 3px purple",
+        }}
+      >
         {isEditing ? (
           <Form>
             <Form.Group>
@@ -146,13 +154,22 @@ const CardComponent = ({ product, handlePost, userToken }) => {
               <Card.Text>Quantity: {editedProduct.quantity}</Card.Text>
               <Card.Text>Category: {editedProduct.categories}</Card.Text>
             </Card.Body>
-            <Button variant={isPosted ? "warning" : "success"} onClick={post}>
+
+            <Button
+              variant={isPosted ? "outline-warning" : "outline-success"}
+              onClick={post}
+            >
               {product.isPosted ? "Un-post" : "Post"}
             </Button>
-            <Button variant="danger" onClick={handleDeleteConfirmation}>
+
+            <Button variant="outline-danger" onClick={handleDeleteConfirmation}>
               <FontAwesomeIcon icon={faTrash} />
             </Button>
-            <Button variant="info" onClick={() => setIsEditing(true)}>
+
+            <Button
+              variant="outline-primary"
+              onClick={() => setIsEditing(true)}
+            >
               <FontAwesomeIcon icon={faEdit} />
             </Button>
           </>
