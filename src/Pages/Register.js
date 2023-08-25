@@ -57,6 +57,15 @@ const Register = () => {
   return (
     <div className="form-container">
       <h1>Register</h1>
+      {/* Display error messages if any */}
+      {error.firstName && <p>{error.firstName}</p>}
+      {error.lastName && <p>{error.lastName}</p>}
+      {error.email && <p>{error.email}</p>}
+      {error.billingAddress && <p>{error.billingAddress}</p>}
+      {error.birthday && <p>{error.birthday}</p>}
+      {error.password && <p>{error.password}</p>}
+      {error.confirmPassword && <p>{error.confirmPassword}</p>}
+
       <Form onSubmit={handleOnSubmit} className="form">
         {/* Form fields for user registration details */}
         <Form.Group className="mb-3" controlId="firstName">
@@ -129,15 +138,6 @@ const Register = () => {
           Submit
         </Button>
       </Form>
-
-      {/* Display error messages if any */}
-      {error.firstName && <p>{error.firstName}</p>}
-      {error.lastName && <p>{error.lastName}</p>}
-      {error.email && <p>{error.email}</p>}
-      {error.billingAddress && <p>{error.billingAddress}</p>}
-      {error.birthday && <p>{error.birthday}</p>}
-      {error.password && <p>{error.password}</p>}
-      {error.confirmPassword && <p>{error.confirmPassword}</p>}
     </div>
   );
 };

@@ -13,6 +13,7 @@ const ProductForm = () => {
   const { createProduct } = useOutletContext();
   const navigate = useNavigate();
 
+  // Constructing the data object based on form values
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
@@ -24,6 +25,8 @@ const ProductForm = () => {
       categories,
       image,
     };
+
+    // Calling the 'createProduct' function to create a new product
     const result = await createProduct(data);
 
     if (result) {

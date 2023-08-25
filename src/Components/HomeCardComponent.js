@@ -11,12 +11,14 @@ const HomeCardComponent = ({
   const [isCurrentUser, setIsCurrentUser] = useState(false);
   const navigate = useNavigate();
 
+  // Effect hook to check if the product owner is the current user
   useEffect(() => {
     if (product.owner === userInfo._id) {
       setIsCurrentUser(true);
     }
   }, [product, userInfo]);
-  console.log(userInfo);
+
+  // Convert image data to Base64 format
   const imageBase64 =
     product.image && product.image.data
       ? `data:image/jpeg;base64,${btoa(
@@ -24,10 +26,13 @@ const HomeCardComponent = ({
         )}`
       : "";
 
-  const handleBuyButton = () => {
+  // Event handler for the "buy" button
+  const handleImageClick = () => {
+    // If the user is not verified, navigate them to the login page
     if (!isVerified) {
       navigate("/login");
     } else if (isVerified) {
+      // If the user is verified, set the current item and navigate to its details page
       const data = {
         productId: product._id,
         owner: product.owner,
@@ -49,7 +54,7 @@ const HomeCardComponent = ({
         <Badge variant="primary">Posted by {userInfo.name}</Badge>
       )}
 
-      <div onClick={handleBuyButton} style={{ cursor: "pointer" }}>
+      <div onClick={handleImageClick} style={{ cursor: "pointer" }}>
         <Card.Img
           variant="top"
           src={imageBase64}

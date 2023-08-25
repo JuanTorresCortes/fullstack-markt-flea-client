@@ -40,6 +40,7 @@ const validateUser = async (userToken) => {
   }
 };
 
+// Adds a new product by making a POST request to the server.
 const addProduct = async (token, productData) => {
   try {
     const formData = new FormData();
@@ -53,7 +54,7 @@ const addProduct = async (token, productData) => {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data", // This content type is necessary for sending files
+          "Content-Type": "multipart/form-data", //=> content type is necessary for sending files
         },
       }
     );
@@ -64,6 +65,7 @@ const addProduct = async (token, productData) => {
   }
 };
 
+//Fetches all products from the server.
 const getAllProducts = async (token) => {
   try {
     const response = await axios.get(`${baseUrl}/products/all-products`, {
@@ -77,7 +79,7 @@ const getAllProducts = async (token) => {
     return error.response.data;
   }
 };
-
+// Edits a product's data based on the provided ID and edit information.
 const editProduct = async (token, id, editInfo) => {
   try {
     const response = await axios.put(
@@ -96,6 +98,7 @@ const editProduct = async (token, id, editInfo) => {
   }
 };
 
+//Fetches all products that have been posted.
 const getPostedProducts = async () => {
   try {
     const response = await axios.get(`${baseUrl}/products/get-posted-products`);
@@ -106,6 +109,7 @@ const getPostedProducts = async () => {
   }
 };
 
+//  Deletes a product based on the provided ID.
 const deleteProduct = async (userToken, id) => {
   try {
     const response = await axios.delete(
@@ -124,6 +128,7 @@ const deleteProduct = async (userToken, id) => {
   }
 };
 
+// Adds an item to the cart.
 const addCartItem = async (token, cartItemData) => {
   try {
     const response = await axios.post(
@@ -142,6 +147,7 @@ const addCartItem = async (token, cartItemData) => {
   }
 };
 
+// Fetches all items in the cart
 const getAllCartItems = async (token) => {
   try {
     const response = await axios.get(`${baseUrl}/cartItems/all-cart-items`, {
@@ -156,6 +162,7 @@ const getAllCartItems = async (token) => {
   }
 };
 
+// Deletes a cart item based on the provided ID.
 const deleteCartItem = async (token, id) => {
   try {
     const response = await axios.delete(
@@ -173,6 +180,7 @@ const deleteCartItem = async (token, id) => {
   }
 };
 
+// Sends a message from one user to another.
 const sendUserMessage = async (senderId, receiverId, content) => {
   try {
     const response = await axios.post(
@@ -194,6 +202,7 @@ const sendUserMessage = async (senderId, receiverId, content) => {
   }
 };
 
+// Fetches all messages for a user.
 const getUserMessages = async (userToken) => {
   try {
     const response = await axios.get(`${baseUrl}/messages/user-messages`, {
@@ -208,6 +217,7 @@ const getUserMessages = async (userToken) => {
   }
 };
 
+// Deletes a user's message based on the provided user ID and message ID.
 const deleteUserMessage = async (userToken, userId, messageId) => {
   try {
     const response = await axios.delete(
@@ -224,6 +234,7 @@ const deleteUserMessage = async (userToken, userId, messageId) => {
   }
 };
 
+// Fetches user info based on the provided user ID.
 const getUserInfo = async (token, id) => {
   try {
     const response = await axios.get(`${baseUrl}/users/getUserInfo/${id}`, {
@@ -238,6 +249,7 @@ const getUserInfo = async (token, id) => {
   }
 };
 
+// Deletes a user's profile based on the provided user ID.
 const deleteProfile = async (token, id) => {
   try {
     const response = await axios.delete(`${baseUrl}/users/delete-user/${id}`, {

@@ -18,6 +18,7 @@ const CardComponent = ({ product, handlePost, userToken }) => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
+  // Convert image data to Base64 format
   const imageBase64 =
     product.image && product.image.data
       ? `data:image/jpeg;base64,${btoa(
@@ -25,6 +26,7 @@ const CardComponent = ({ product, handlePost, userToken }) => {
         )}`
       : "";
 
+  // Toggle the posted status of a product
   const post = () => {
     setIsPosted(!isPosted);
     const data = {
@@ -34,6 +36,7 @@ const CardComponent = ({ product, handlePost, userToken }) => {
     navigate("/");
   };
 
+  // Handle changes made during editing
   const handleEditChange = (event) => {
     setEditedProduct({
       ...editedProduct,
@@ -41,6 +44,7 @@ const CardComponent = ({ product, handlePost, userToken }) => {
     });
   };
 
+  // Submit edits to the backend
   const handleEditSubmit = async () => {
     const response = await editProduct(userToken, product._id, editedProduct);
     if (response.success) {
@@ -51,10 +55,12 @@ const CardComponent = ({ product, handlePost, userToken }) => {
     }
   };
 
+  // Show confirmation modal for deletion
   const handleDeleteConfirmation = () => {
     setShowModal(true);
   };
 
+  // Confirm product deletion
   const handleDeleteConfirmed = async () => {
     deleteProduct(userToken, product._id);
     navigate("/");
@@ -62,6 +68,7 @@ const CardComponent = ({ product, handlePost, userToken }) => {
 
   return (
     <>
+      {/* Deletion confirmation modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Confirm Deletion</Modal.Title>
