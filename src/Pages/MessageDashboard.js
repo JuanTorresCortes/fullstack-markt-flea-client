@@ -10,6 +10,7 @@ const MessageDashboard = () => {
 
   const userId = userInfo._id;
 
+  // Function to fetch user messages from the server
   const fetchMessages = async () => {
     const response = await getUserMessages(userToken);
     if (response.success) {
@@ -19,10 +20,12 @@ const MessageDashboard = () => {
     }
   };
 
+  // Function to handle deleting a specific user message
   const handleDelete = async (messageId) => {
     try {
       const response = await deleteUserMessage(userToken, userId, messageId);
       if (response.success) {
+        // Update the messages state by filtering out the deleted message
         setMessages(messages.filter((message) => message._id !== messageId));
       } else {
         console.error("Error deleting message:", response.message);
@@ -32,11 +35,13 @@ const MessageDashboard = () => {
     }
   };
 
+  // Effect hook to fetch user messages when the component mounts
   useEffect(() => {
     fetchMessages();
   }, [userToken]);
 
   return (
+    // Rendering the dashboard with a table of messages
     <Container style={{ margin: "5rem" }}>
       <h2>Message DashBoard</h2>
       <Row className="mt-5">

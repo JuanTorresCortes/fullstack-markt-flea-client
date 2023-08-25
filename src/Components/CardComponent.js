@@ -57,8 +57,7 @@ const CardComponent = ({ product, handlePost, userToken }) => {
 
   const handleDeleteConfirmed = async () => {
     deleteProduct(userToken, product._id);
-    // navigate("/");
-    navigate("/products");
+    navigate("/");
   };
 
   return (
@@ -162,15 +161,15 @@ const CardComponent = ({ product, handlePost, userToken }) => {
               {product.isPosted ? "Un-post" : "Post"}
             </Button>
 
-            <Button variant="outline-danger" onClick={handleDeleteConfirmation}>
-              <FontAwesomeIcon icon={faTrash} />
-            </Button>
-
             <Button
               variant="outline-primary"
               onClick={() => setIsEditing(true)}
             >
               <FontAwesomeIcon icon={faEdit} />
+            </Button>
+
+            <Button variant="outline-danger" onClick={handleDeleteConfirmation}>
+              <FontAwesomeIcon icon={faTrash} />
             </Button>
           </>
         )}

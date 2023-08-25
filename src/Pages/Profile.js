@@ -12,11 +12,12 @@ const Profile = () => {
   const { userInfo, userToken, setUser, setIsVerified } = useOutletContext();
   const navigate = useNavigate();
 
+  // Effect hook to fetch user data based on token and user ID
   useEffect(() => {
     const getData = async () => {
       const response = await getUserInfo(userToken, userInfo._id);
       if (response.success) {
-        setData(response.user);
+        setData(response.user); // Set user data to state
       }
     };
 
@@ -25,15 +26,17 @@ const Profile = () => {
     }
   }, [userToken, userInfo._id]);
 
+  // Handler to close the main profile modal and navigate to home
   const handleClose = () => {
     setShowModal(false);
     navigate("/");
   };
 
+  // Handler to delete the user profile
   const handleDeleteProfile = async () => {
     setShowConfirmModal(false);
 
-    // Log out the user
+    // Log out the user and remove their token from local storage
     const resultLogout = await removeUserToken();
     if (resultLogout) {
       setUser(null);
@@ -59,6 +62,7 @@ const Profile = () => {
   };
 
   return (
+    // Main profile modal
     <Modal show={showModal} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>
@@ -96,6 +100,7 @@ const Profile = () => {
           Delete Profile
         </Button>
       </Modal.Footer>
+      {/* Confirmation modal to confirm profile deletion */}
       {showConfirmModal && (
         <Modal
           show={showConfirmModal}

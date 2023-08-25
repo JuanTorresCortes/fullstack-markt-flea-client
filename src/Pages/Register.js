@@ -24,6 +24,7 @@ const Register = () => {
       return; // Exit the function if passwords don't match
     }
 
+    // Constructing user data for registration
     const data = {
       firstName,
       lastName,
@@ -32,10 +33,13 @@ const Register = () => {
       birthday,
       password,
     };
-    const registerResult = await registerUser(data);
-    console.log(registerResult);
 
+    // Sending registration request to the API
+    const registerResult = await registerUser(data);
+
+    // Check if registration was successful
     if (registerResult.success) {
+      // Reset all form fields and error messages
       setError({});
       setFirstName("");
       setLastName("");
@@ -54,6 +58,7 @@ const Register = () => {
     <div className="form-container">
       <h1>Register</h1>
       <Form onSubmit={handleOnSubmit} className="form">
+        {/* Form fields for user registration details */}
         <Form.Group className="mb-3" controlId="firstName">
           <Form.Label>First Name:</Form.Label>
           <Form.Control

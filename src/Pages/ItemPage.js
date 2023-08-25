@@ -11,7 +11,9 @@ const ItemPage = () => {
   // State variable for storing the error message
   const [error, setError] = useState(null);
 
+  // Handler for the "Add to Cart" button click event
   const handleCartButton = async () => {
+    // Constructing the data for the cart item
     const data = {
       owner: userInfo._id,
       productCurrentOwner: currentItem.owner,
@@ -20,8 +22,9 @@ const ItemPage = () => {
       description: currentItem.description,
       cost: currentItem.cost,
     };
+    // Sending the API request to add the item to the cart
     const createResults = await addCartItem(userToken, data);
-
+    // Check if the API request was successful
     if (createResults.success) {
       navigate("/cart");
     } else {
@@ -36,11 +39,12 @@ const ItemPage = () => {
         <Col md="auto">
           {/* Display an alert if there's an error */}
           {error && <Alert variant="danger">{error}</Alert>}
+          {/* Card component to display the item details */}
           <Card
             style={{
               width: "30rem",
               border: "12px solid black", // Black border
-              boxShadow: "0 8px 16px rgba(0,0,0,0.5)", // Enhanced box shadow
+              boxShadow: "0 8px 16px rgba(0,0,0,0.5)",
             }}
           >
             <Card.Img

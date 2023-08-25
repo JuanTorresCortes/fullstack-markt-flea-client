@@ -12,6 +12,7 @@ const Cart = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
+  // Handler to open the offer modal and prepare the default message
   const handleMakeOffer = (item) => {
     setSelectedItem(item);
     setShowModal(true);
@@ -23,6 +24,7 @@ const Cart = () => {
     setMessage(genericMessage);
   };
 
+  // Handler to send an offer message to the seller
   const handleSendOffer = async () => {
     if (selectedItem) {
       const senderId = userInfo._id;
@@ -39,6 +41,7 @@ const Cart = () => {
     }
   };
 
+  // Handler to delete an item from the cart
   const handleDelete = async (item) => {
     try {
       const response = await deleteCartItem(userToken, item._id);
@@ -56,6 +59,7 @@ const Cart = () => {
     }
   };
 
+  // Effect hook to fetch cart items when the component mounts or when the token changes
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllCartItems(userToken);
@@ -103,6 +107,7 @@ const Cart = () => {
           ))}
         </tbody>
       </Table>
+      {/* Modal for sending an offer message to the seller */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Make Offer</Modal.Title>

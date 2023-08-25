@@ -33,7 +33,6 @@ const Home = () => {
             <Col xs={12} sm={6} md={4} lg={3} key={item._id} className="mb-4">
               <Card className="card-container">
                 {" "}
-                {/* Applying the CSS class */}
                 <div
                   style={{
                     display: "flex",
